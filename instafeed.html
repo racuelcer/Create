@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="stylesheet.css"rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.transition.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script src="js/instafeed.min.js" type="text/javascript"> </script>
+<script type="text/javascript" src="js/library.js"></script>
+<title>Instafeed</title>
+</head>
+
+<body >
+ <div class="header" align="center" style="background:#EE2A7B">
+  <br/>
+  Look up instagram Hasthags and decorate them!
+  </div>
+  
+  
+  <div class="wrap" align="center">
+ 
+  <form onsubmit="return instaRun();"><input name="tag" type="text" id="instaTag" class="formatsearch">
+	<input type="submit" value="set"  class="button2" value="Find">
+		</form>
+
+		<script type="text/javascript">
+
+		var instaOutput = document.getElementById("instaTag");
+
+		function instaRun() {
+  		instaOutput = document.getElementById("instaTag").value.replace(/[^\w]/gi, '');
+  		var feed = new Instafeed({
+    	get: 'tagged',
+    	tagName: instaOutput,
+    	limit: '1',
+    	links: 'false',
+    	clientId: 'a3ef111ed43345068cf0696cf3c63882',
+    	resolution: 'standard_resolution',
+    
+    	before: function() {
+      instaOutput = document.getElementById("instaTag").value.replace(/[^\w]/gi, '');
+      if (document.getElementById("instaTag").value === "") {
+        document.getElementById("instafeed").innerHTML = "<p class='error'>There's not images with that hashtag. Try something elese like <strong>#yolo</strong></p>";
+      } else {
+        document.getElementById("instafeed").innerHTML = "";
+      }
+    },
+  });
+  feed.run();
+  return false;
+}
+window.onload = function() {
+  if (instaOutput.value === null || instaOutput.value === "") {
+    instaOutput.value = "#NewYork";
+  }
+  document.getElementById("instafeed").innerHTML = "";
+  instaRun();
+}
+</script> 
+
+<div class="insta-wrap">
+			<p class="bodytext">Drag the images to the canvas and move them around!! </p>
+
+			<div id="instafeed">	
+			</div>
+		<canvas id = "canvas" ondrop="drop(event)" ondragover="allowDrop(event)" width="640" height= "640">  </canvas>
+        
+        <div class= "images">
+        
+        <img id="img1" draggable="true" ondragstart="drag(event)" src='images/pump.png'>
+            <img id="img2" draggable="true" ondragstart="drag(event)" src='images/skull.png'> 
+            <img id="img3" draggable="true" ondragstart="drag(event)" src='images/frankie.png'> 
+            
+            
+
+		    <img id="img4" draggable="true" ondragstart="drag(event)" src='images/bday1.png'>
+            <img id="img5" draggable="true" ondragstart="drag(event)" src='images/bday2.png'>  
+            <img id="img6" draggable="true" ondragstart="drag(event)" src='images/bday4.png'>
+	
+			<img id="img9" draggable="true" ondragstart="drag(event)" src='images/cartoon.png'>
+            <img id="img10" draggable="true" ondragstart="drag(event)" src='images/cartoon2.png'> 
+            <img id="img11" draggable="true" ondragstart="drag(event)" src='images/cartoon3.png'> 
+            
+            <img id="img12" draggable="true" ondragstart="drag(event)" src='images/rocket.png'>
+            <img id="img13" draggable="true" ondragstart="drag(event)" src='images/sol.png'> 
+            <img id="img14" draggable="true" ondragstart="drag(event)" src='images/bird.png'>
+            
+      	 	
+        </div>
+        
+       
+        
+        <div class="downbu">
+			<a id="download" download="image.png" class="button2"> Download Image </a>
+
+ 			<script type="text/javascript">
+        		var canvas = document.getElementById("canvas");
+
+        		function download () {
+            	var dt = canvas.toDataURL();
+            	this.href=dt;
+       		 	}
+
+        		document.getElementById("download").addEventListener("click",download,false)
+     		</script>   
+     </div>		
+
+        
+ </div>
+
+
+  
+</body>
+</html>
